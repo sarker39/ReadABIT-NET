@@ -8,11 +8,11 @@ namespace CodePulse.API.Controllers
     //https://localhost:xxxx/api/categories
     [Route("api/[controller]")]
     [ApiController]
-    public class CatagoriesController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly ICategoryRepository categoryRepository;
 
-        public CatagoriesController(ICategoryRepository categoryRepository)
+        public CategoriesController(ICategoryRepository categoryRepository)
         {
             this.categoryRepository = categoryRepository;
         }
@@ -27,7 +27,7 @@ namespace CodePulse.API.Controllers
                 UrlHandle = request.UrlHandle,
             };
 
-            this.categoryRepository.CreateCategory(category);
+            this.categoryRepository.CreateCategoryAsync(category);
 
             //Domain Model to DTO
             var response = new CategoryDto
@@ -40,6 +40,26 @@ namespace CodePulse.API.Controllers
 
             return Ok(response);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategories()
+        {
+            var categoryLists = await this.categoryRepository.GetAllCategoriesAsync();
+
+            var response = new List<CategoryDto>();
+
+            foreach(var category in categoryLists)
+            {
+                response.Add(new CategoryDto
+                {
+                    Id=category.Id,
+                    Name = category.Name,
+                    UrlHandle=category.UrlHandle
+                });
+            }
+
+            return Ok(response);
         }
     }
 }
