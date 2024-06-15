@@ -61,5 +61,26 @@ namespace CodePulse.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetCategoryById([FromRoute] Guid id)
+        {
+            var filteredCategory = await this.categoryRepository.GetCategoryByIdAsync(id);
+
+            if(filteredCategory is null)
+            {
+                return NotFound();
+            }
+
+            var response = new Category
+            {
+                Id = filteredCategory.Id,
+                Name = filteredCategory.Name,
+                UrlHandle = filteredCategory.UrlHandle
+            };
+
+            return Ok(response);
+        }
     }
 }
