@@ -39,7 +39,7 @@ namespace CodePulse.API.Controllers
             {
                 var existingCategory = await categoryRepository.GetCategoryByIdAsync(categoryGuid);
 
-                if(existingCategory is not null)
+                if (existingCategory is not null)
                 {
                     blogPost.Categories.Add(existingCategory);
                 }
@@ -58,10 +58,10 @@ namespace CodePulse.API.Controllers
                 ShortDescription = blogPost.ShortDescription,
                 Title = blogPost.Title,
                 UrlHandle = blogPost.UrlHandle,
-                Categories = blogPost.Categories.Select(x => new CategoryDto { 
+                Categories = blogPost.Categories.Select(x => new CategoryDto {
                     Id = x.Id,
                     Name = x.Name,
-                    UrlHandle= x.UrlHandle,
+                    UrlHandle = x.UrlHandle,
                 }).ToList()
 
             };
@@ -76,21 +76,85 @@ namespace CodePulse.API.Controllers
             var blogPosts = await blogPostRepository.GetAllBlogPostsAsync();
             var response = new List<BlogPostResponseDto>();
 
-            foreach(var blogPost in blogPosts)
+            foreach (var blogPost in blogPosts)
             {
                 response.Add(new BlogPostResponseDto
                 {
-                    Id=blogPost.Id,
+                    Id = blogPost.Id,
                     Author = blogPost.Author,
                     Content = blogPost.Content,
-                    FeaturedImageUrl=blogPost.FeaturedImageUrl,
+                    FeaturedImageUrl = blogPost.FeaturedImageUrl,
                     IsVisible = blogPost.IsVisible,
                     PublishedDate = blogPost.PublishedDate,
                     ShortDescription = blogPost.ShortDescription,
                     Title = blogPost.Title,
-                    UrlHandle = blogPost.UrlHandle
+                    UrlHandle = blogPost.UrlHandle,
+                    Categories = blogPost.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle,
+                    }).ToList()
                 });
             }
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetBlogPostById([FromRoute] Guid id)
+        {
+            var filteredBlogPost = await blogPostRepository.GetBlogPostByIdAsync(id);
+
+            var response = new BlogPostResponseDto
+            {
+                Id = filteredBlogPost.Id,
+                Author = filteredBlogPost.Author,
+                Content = filteredBlogPost.Content,
+                FeaturedImageUrl = filteredBlogPost.FeaturedImageUrl,
+                IsVisible = filteredBlogPost.IsVisible,
+                PublishedDate = filteredBlogPost.PublishedDate,
+                ShortDescription = filteredBlogPost.ShortDescription,
+                Title = filteredBlogPost.Title,
+                UrlHandle = filteredBlogPost.UrlHandle,
+                Categories = filteredBlogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle,
+                }).ToList()
+            };
+
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("{urlHandle}")]
+        public async Task<IActionResult> GetBlogPostByUrlHandle([FromRoute] string urlHandle)
+        {
+            var filteredBlogPost = await blogPostRepository.GetBlogPostByUrlAsync(urlHandle);
+
+            var response = new BlogPostResponseDto
+            {
+                Id = filteredBlogPost.Id,
+                Author = filteredBlogPost.Author,
+                Content = filteredBlogPost.Content,
+                FeaturedImageUrl = filteredBlogPost.FeaturedImageUrl,
+                IsVisible = filteredBlogPost.IsVisible,
+                PublishedDate = filteredBlogPost.PublishedDate,
+                ShortDescription = filteredBlogPost.ShortDescription,
+                Title = filteredBlogPost.Title,
+                UrlHandle = filteredBlogPost.UrlHandle,
+                Categories = filteredBlogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle,
+                }).ToList()
+            };
+
 
             return Ok(response);
         }
