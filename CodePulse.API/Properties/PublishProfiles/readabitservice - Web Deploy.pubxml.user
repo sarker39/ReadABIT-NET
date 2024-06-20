@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFya0qoocmE+41JnwatM7SgAAAAACAAAAAAAQZgAAAAEAACAAAABSkXNiYjABJd1MPIefsG1Aga4P4d06mrxlO8cfY+eySgAAAAAOgAAAAAIAACAAAADW8BM8RrPI4AlTAqS3DapnlSHq31COiGEs3r6E+9bYh4AAAAAIFoMOFEJRfbb5MAdL/RegOS6YHd5qVBYfLpR4xOQ4DdWajO7AtU/acRjudugXJ9mpQUFCtvPanxQSkN9X8LkJhXq7ebt9/ua2t3TT17kEUQjzoPxDqi9VvjfJX3ToLgtqgdqqlKryZ5RLbDu7DMfuR5eJRAvN1mtYCpy4jBgar0AAAABfkNbAakMAufGDtaLkQ1/gHUJFBwcoDDIeCxKdJxqc21MdV4fd6+glgUU9dkymJ6RZRoalHboRxUtcdb4ez7fu</EncryptedPassword>
+    <History>True|2024-06-16T18:43:31.8017874Z;True|2024-06-17T00:29:19.5251227+06:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="CodePulseConnectionString">
+      <Value>Data Source=readabitdbserver.database.windows.net,1433%3bInitial Catalog=CodePulseDb%3bUser ID=sourav.sarker%3bPassword=1qazZAQ!</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="CodePulse.API.Data.ApplicationDbContext">
+      <Value>Data Source=readabitdbserver.database.windows.net,1433%3bInitial Catalog=CodePulseDb%3bUser ID=sourav.sarker%3bPassword=1qazZAQ!</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
